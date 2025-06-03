@@ -9,7 +9,6 @@ def create_dataloaders(csv_path, image_size=(224, 128), batch_size=32):
     df = pd.read_csv(csv_path)
 
     df['filepaths'] = df['filepaths'].apply(lambda p: os.path.join('plates_dataset', p))
-    print(f"Number of images: {len(df)} rows\n")
 
     # Encode the labels
     label_encoder = LabelEncoder()

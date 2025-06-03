@@ -1,4 +1,5 @@
 import torch
+from sklearn.metrics import accuracy_score
 from torchvision import models
 from data_loader import create_dataloaders
 
@@ -11,7 +12,6 @@ DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 # Load the dataset and create dataloaders
 train_loader, valid_loader, label_map = create_dataloaders(CSV_PATH, IMAGE_SIZE, BATCH_SIZE)
 num_classes = len(label_map)
-print("Number of num_classes: " + num_classes.__str__())
 
 # Build model
 model = models.resnet50(pretrained=True)
@@ -22,6 +22,7 @@ model = model.to(DEVICE)
 criterion = torch.nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
+"""
 # Training loop
 for epoch in range(NUM_EPOCHS):
     model.train()
@@ -55,3 +56,20 @@ for epoch in range(NUM_EPOCHS):
 
 # Save the model
 torch.save(model.state_dict(), 'resnet50_license_plate_model.pth')
+"""
+
+# Load the model
+model.load_state_dict(torch.load('resnet50_license_plate_model.pth', map_location=DEVICE))
+val_preds = []
+val_labels = []
+
+with torch.no_grad():
+    for images, labels in valid_loader:
+        images, labels = images.to(DEVICE), labels.to(DEVICE)
+        outputs = model(images)
+        _, predicted = torch.max(outputs, 1)
+        val_preds.extend(predicted.cpu().numpy())
+        val_labels.extend(labels.cpu().numpy())
+
+val_acc = accuracy_score(val_labels, val_preds)
+print(f"🧪 Validation Accuracy: {val_acc:.4f}")
