@@ -1,0 +1,10 @@
+train/
+valid/
+test/
+*.jpg
+*.png
+*.jpeg
+*.h5
+*.zip
+*.csv
+*.pt
