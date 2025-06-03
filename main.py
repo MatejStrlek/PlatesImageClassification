@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
-from model.data_loader import create_dataloaders
-from utils.model_utils import build_model, train_one_epoch, validate_model, plot_confusion_matrix
+from data_loader import create_dataloaders
+from model_utils import build_model, train_one_epoch, validate_model, plot_confusion_matrix
 
 CSV_PATH = 'plates_dataset/plates.csv'
 IMAGE_SIZE = (224, 128)

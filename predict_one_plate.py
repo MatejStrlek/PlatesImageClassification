@@ -5,8 +5,8 @@ import torch.nn.functional as f
 from PIL import Image
 from torchvision import transforms
 
-from model.data_loader import create_dataloaders
-from utils.model_utils import build_model
+from data_loader import create_dataloaders
+from model_utils import build_model
 
 # To test this, you need to have a trained model saved as "best_model.pth" and type command:
 # python predict_one_plate.py --image path_to_your_image.jpg
@@ -42,7 +42,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # === Settings ===
-    CSV_PATH = '../plates_dataset/plates.csv'
+    CSV_PATH = 'plates_dataset/plates.csv'
     IMAGE_SIZE = (224, 128)
     DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -51,7 +51,7 @@ if __name__ == "__main__":
 
     # Load model
     model = build_model(num_classes=len(label_map))
-    model.load_state_dict(torch.load("../best_model.pth", map_location=DEVICE))
+    model.load_state_dict(torch.load("best_model.pth", map_location=DEVICE))
     model = model.to(DEVICE)
 
     # Predict image
