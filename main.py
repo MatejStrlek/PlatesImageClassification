@@ -1,11 +1,12 @@
 import torch
+import torch.nn as nn
 from sklearn.metrics import accuracy_score
 from torchvision import models
 from data_loader import create_dataloaders
 
 CSV_PATH = 'plates_dataset/plates.csv'
 IMAGE_SIZE = (224, 128)
-BATCH_SIZE = 16
+BATCH_SIZE = 32
 NUM_EPOCHS = 15 # Epoch [15/15], Loss: 0.2310, Accuracy: 0.9336
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -15,14 +16,21 @@ num_classes = len(label_map)
 
 # Build model
 model = models.resnet50(pretrained=True)
-model.fc = torch.nn.Linear(model.fc.in_features, num_classes)
+model.fc = nn.Sequential(
+    nn.Dropout(0.4),
+    nn.Linear(model.fc.in_features, 512),
+    nn.ReLU(),
+    nn.Dropout(0.3),
+    nn.Linear(512, num_classes)
+)
 model = model.to(DEVICE)
 
 # Define loss function and optimizer
 criterion = torch.nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+optimizer = torch.optim.Adam(model.parameters(), lr=0.0005)
 
-"""
+best_val_acc = 0.0
+
 # Training loop
 for epoch in range(NUM_EPOCHS):
     model.train()
@@ -54,22 +62,26 @@ for epoch in range(NUM_EPOCHS):
     train_acc = correct / total
     print(f'Epoch [{epoch+1}/{NUM_EPOCHS}], Loss: {epoch_loss:.4f}, Accuracy: {train_acc:.4f}')
 
+    # Run validation after each epoch
+    model.eval()
+    val_preds = []
+    val_labels = []
+    with torch.no_grad():
+        for images, labels in valid_loader:
+            images, labels = images.to(DEVICE), labels.to(DEVICE)
+            outputs = model(images)
+            _, predicted = torch.max(outputs, 1)
+            val_preds.extend(predicted.cpu().numpy())
+            val_labels.extend(labels.cpu().numpy())
+
+    val_acc = accuracy_score(val_labels, val_preds)
+    print(f"🧪 Validation Accuracy: {val_acc:.4f}")
+
+    # Save best model based on validation accuracy
+    if val_acc > best_val_acc:
+        best_val_acc = val_acc
+        torch.save(model.state_dict(), 'best_model.pth')
+        print(f"💾 Saved new best model with val accuracy: {val_acc:.4f}")
+
 # Save the model
 torch.save(model.state_dict(), 'resnet50_license_plate_model.pth')
-"""
-
-# Load the model
-model.load_state_dict(torch.load('resnet50_license_plate_model.pth', map_location=DEVICE))
-val_preds = []
-val_labels = []
-
-with torch.no_grad():
-    for images, labels in valid_loader:
-        images, labels = images.to(DEVICE), labels.to(DEVICE)
-        outputs = model(images)
-        _, predicted = torch.max(outputs, 1)
-        val_preds.extend(predicted.cpu().numpy())
-        val_labels.extend(labels.cpu().numpy())
-
-val_acc = accuracy_score(val_labels, val_preds)
-print(f"🧪 Validation Accuracy: {val_acc:.4f}")
