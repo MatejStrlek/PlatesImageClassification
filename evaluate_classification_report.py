@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import pandas as pd
 import torch
 from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
 
