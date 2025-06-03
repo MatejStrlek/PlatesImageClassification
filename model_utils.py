@@ -55,6 +55,6 @@ def plot_confusion_matrix(val_labels, val_preds, label_map):
     disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=label_map.values())
     fig, ax = plt.subplots(figsize=(14, 14))
     disp.plot(ax=ax, cmap='Blues', xticks_rotation='vertical')
-    plt.title("Confusion Matrix")
+    plt.title("Confusion matrix")
     plt.tight_layout()
     plt.show()
