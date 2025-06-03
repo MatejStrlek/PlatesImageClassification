@@ -29,11 +29,10 @@ print(f"✅ Validation Accuracy: {val_acc:.4f}")
 report = classification_report(val_labels, val_preds, target_names=list(label_map.values()))
 print("\n📊 Classification Report:\n", report)
 
-# Save as text
 with open("classification_report.txt", "w") as f:
     f.write(report)
 
-# (Optional) Show confusion matrix
+# Confusion matrix
 cm = confusion_matrix(val_labels, val_preds)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=label_map.values())
 fig, ax = plt.subplots(figsize=(14, 14))
