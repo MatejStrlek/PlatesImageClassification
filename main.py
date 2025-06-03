@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
-from data_loader import create_dataloaders
-from model_utils import build_model, train_one_epoch, validate_model, plot_confusion_matrix
+from model.data_loader import create_dataloaders
+from utils.model_utils import build_model, train_one_epoch, validate_model, plot_confusion_matrix
 
 CSV_PATH = 'plates_dataset/plates.csv'
 IMAGE_SIZE = (224, 128)
@@ -26,13 +26,13 @@ for epoch in range(NUM_EPOCHS):
     print(f"Train Loss: {train_loss:.4f}, Accuracy: {train_acc:.4f}")
 
     val_acc, val_labels, val_preds = validate_model(model, valid_loader, DEVICE)
-    print(f" Validation Accuracy: {val_acc:.4f}")
+    print(f"Validation Accuracy: {val_acc:.4f}")
     plot_confusion_matrix(val_labels, val_preds, label_map)
 
     if val_acc > best_val_acc:
         best_val_acc = val_acc
         torch.save(model.state_dict(), 'best_model.pth')
-        print(f" Saved new best model with val accuracy: {val_acc:.4f}")
+        print(f"Saved new best model with val accuracy: {val_acc:.4f}")
 
 # Final model save
 torch.save(model.state_dict(), 'resnet50_license_plate_model.pth')
