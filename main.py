@@ -3,6 +3,8 @@ import torch.nn as nn
 from sklearn.metrics import accuracy_score
 from torchvision import models
 from data_loader import create_dataloaders
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
 
 CSV_PATH = 'plates_dataset/plates.csv'
 IMAGE_SIZE = (224, 128)
@@ -76,6 +78,19 @@ for epoch in range(NUM_EPOCHS):
 
     val_acc = accuracy_score(val_labels, val_preds)
     print(f"🧪 Validation Accuracy: {val_acc:.4f}")
+
+    # Create confusion matrix
+    cm = confusion_matrix(val_labels, val_preds)
+
+    # Display with class labels
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=label_map.values())
+
+    # Plot
+    fig, ax = plt.subplots(figsize=(14, 14))
+    disp.plot(ax=ax, cmap='Blues', xticks_rotation='vertical')
+    plt.title("Confusion Matrix")
+    plt.tight_layout()
+    plt.show()
 
     # Save best model based on validation accuracy
     if val_acc > best_val_acc:
