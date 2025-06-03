@@ -5,7 +5,7 @@ from data_loader import create_dataloaders
 CSV_PATH = 'plates_dataset/plates.csv'
 IMAGE_SIZE = (224, 128)
 BATCH_SIZE = 16
-NUM_EPOCHS = 5
+NUM_EPOCHS = 15 # Epoch [15/15], Loss: 0.2310, Accuracy: 0.9336
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # Load the dataset and create dataloaders
