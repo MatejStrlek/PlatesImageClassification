@@ -46,7 +46,7 @@ if __name__ == "__main__":
     IMAGE_SIZE = (224, 128)
     DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-    # Load label map (reuse your existing loader)
+    # Load label map
     _, _, label_map = create_dataloaders(CSV_PATH, IMAGE_SIZE, batch_size=32)
 
     # Load model
