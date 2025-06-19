@@ -32,3 +32,13 @@ plt.title("Confusion matrix")
 plt.tight_layout()
 plt.savefig("confusion_matrix.png")
 plt.show()
+
+model.eval()
+sample_image, sample_label = next(iter(valid_loader))
+sample_image = sample_image[0].unsqueeze(0).to(DEVICE)
+
+target_layer = model.layer4[-1]
+gradcam = GradCAM(model, target_layer)
+cam = gradcam.generate(sample_image)
+
+show_gradcam_on_image(sample_image, cam)
