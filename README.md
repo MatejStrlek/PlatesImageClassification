@@ -54,7 +54,7 @@ All image tensors were normalized to the `[-1, 1]` range using:
 ```python
 transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
 ```
-## Model architecture and training report
+# Model architecture and training report
 In this project we implemented a deep learning-based image classifier. The model classifies U.S. license plates 
 into one of 56 classes (50 states, D.C. and territories). The goal was to build a robust classifier that performs 
 well across real-world variations in plate design, orientation and lighting.
@@ -117,14 +117,14 @@ Trainable parameter counts:
 - **DenseNet121**: `7,011,256` parameters  
 - **ResNet50**: `24,585,848` parameters
 
-## Model comparison
+# Model comparison
 Three deep learning models were trained and evaluated for license plate classification:
 
 - **ResNet50** (baseline)
 - **EfficientNet-B0**
 - **DenseNet121**
 
-### Loss curve comparison
+## Loss curve comparison
 Each model's training and validation loss was tracked for 25 epochs:
 
 | Model               | Training loss        | Validation loss     | Overfitting | Stability | Generalization |
@@ -133,7 +133,7 @@ Each model's training and validation loss was tracked for 25 epochs:
 | **EfficientNet-B0** | Fast and smooth drop | Lowest overall      | Minimal    | Stable | Best           |
 | **DenseNet121**     | Fast and smooth drop | Rises after epoch 5 | Noticeable | Stable | Not consistent |
 
-### Insights 
+## Insights 
 - **ResNet50** served as a strong and balanced baseline with good learning behavior
 - **EfficientNet-B0** showed the best validation performance
 - **DenseNet121** began overfitting early - validation loss increased despite decreasing training loss
