@@ -166,7 +166,7 @@ Each model’s loss curve is shown below:
 ![DenseNet121 loss](loss_curve_densenet_model.png)
 
 Based on validation performance and loss trends, EfficientNet-B0 is the most reliable model for this task. 
-It generalizes well, trains efficiently, and has minimal signs of overfitting.
+It generalizes well, trains efficiently and has minimal signs of overfitting.
 
 ## Overall performance summary
 
