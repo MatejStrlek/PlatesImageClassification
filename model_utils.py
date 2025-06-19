@@ -1,9 +1,9 @@
 import torch
 import torch.nn as nn
 from sklearn.metrics import accuracy_score
+from torchvision import models
 
 def build_model(num_classes, dropout=0.3):
-    from torchvision import models
     model = models.resnet50(pretrained=True)
     in_features = model.fc.in_features
     model.fc = nn.Sequential(
@@ -11,6 +11,26 @@ def build_model(num_classes, dropout=0.3):
         nn.ReLU(),
         nn.Dropout(dropout),
         nn.Linear(512, num_classes)
+    )
+    return model
+
+def build_efficientnet(num_classes, dropout=0.3):
+    model = models.efficientnet_b0(pretrained=True)
+    in_features = model.classifier[1].in_features
+    model.classifier = nn.Sequential(
+        nn.ReLU(),
+        nn.Dropout(dropout),
+        nn.Linear(in_features, num_classes)
+    )
+    return model
+
+def build_densenet(num_classes, dropout=0.3):
+    model = models.densenet121(pretrained=True)
+    in_features = model.classifier.in_features
+    model.classifier = nn.Sequential(
+        nn.ReLU(),
+        nn.Dropout(dropout),
+        nn.Linear(in_features, num_classes)
     )
     return model
 

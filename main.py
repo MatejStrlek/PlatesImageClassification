@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from data_loader import create_dataloaders
-from model_utils import build_model, train_one_epoch, validate_model
+from model_utils import build_model, train_one_epoch, validate_model, build_efficientnet, build_densenet
 from sklearn.metrics import classification_report
 import matplotlib.pyplot as plt
 
@@ -52,5 +52,5 @@ plt.ylabel('Loss')
 plt.legend()
 plt.grid(True)
 plt.tight_layout()
-plt.savefig("loss_curve.png")
+plt.savefig("loss_curve_resnet50.png")
 plt.close()
