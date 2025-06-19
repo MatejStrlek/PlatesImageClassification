@@ -48,6 +48,21 @@ All images were preprocessed to ensure consistent size and normalization:
 ### Resize
 Every image was resized to 224 × 128 pixels, maintaining consistent dimensions for model input.
 
+### Augmentation
+Data augmentation techniques were applied to improve model robustness:
+
+| Transformation                | Description                                                       |
+|-------------------------------|-------------------------------------------------------------------|
+| `Resize((224, 128))`          | Scales all images to a fixed input shape required by the model    |
+| `RandomHorizontalFlip()`      | Flips images horizontally with 50% probability                    |
+| `RandomRotation(10)`          | Randomly rotates images by +/-10 degrees                          |
+| `ColorJitter(0.2, 0.2)`       | Randomly alters brightness and contrast by up to 20%              |
+| `ToTensor()`                  | Converts PIL images to PyTorch tensors                            |
+| `Normalize([0.5]*3, [0.5]*3)` | Normalizes pixel values to the range [-1, 1] for each RGB channel |
+
+These augmentations simulate real-world variations in lighting, orientation and appearance to reduce overfitting
+and make the model more robust to unseen data.
+
 ### Normalization
 All image tensors were normalized to the `[-1, 1]` range using:
 
@@ -127,16 +142,16 @@ Three deep learning models were trained and evaluated for license plate classifi
 ## Loss curve comparison
 Each model's training and validation loss was tracked for 25 epochs:
 
-| Model               | Training loss        | Validation loss     | Overfitting | Stability | Generalization |
-|---------------------|----------------------|---------------------|------------|--------|----------------|
-| **ResNet50**        | Slow drop            | Highest overall     | Slight     | Stable | Good enough    |
-| **EfficientNet-B0** | Fast and smooth drop | Lowest overall      | Minimal    | Stable | Best           |
-| **DenseNet121**     | Fast and smooth drop | Rises after epoch 5 | Noticeable | Stable | Not consistent |
+| Model       | Training loss        | Validation loss    | Overfitting |
+|-------------|----------------------|--------------------|-------------|
+| ResNet50    | Slow drop            | Highest overall    | Slight      |
+| EfficientNet-B0 | Fast and smooth drop | Lowest overall     | Minimal     |
+| DenseNet121 | Fast and smooth drop | Rises after epoch 5 | Noticeable  |
 
-## Insights 
-- **ResNet50** served as a strong and balanced baseline with good learning behavior
-- **EfficientNet-B0** showed the best validation performance
-- **DenseNet121** began overfitting early - validation loss increased despite decreasing training loss
+### Insights 
+- ResNet50 served as a strong and balanced baseline with good learning behavior
+- EfficientNet-B0 showed the best validation performance
+- DenseNet121 began overfitting early - validation loss increased despite decreasing training loss
 
 ### Visual comparison
 Each model’s loss curve is shown below:
@@ -152,3 +167,16 @@ Each model’s loss curve is shown below:
 
 Based on validation performance and loss trends, EfficientNet-B0 is the most reliable model for this task. 
 It generalizes well, trains efficiently, and has minimal signs of overfitting.
+
+## Overall performance summary
+
+| Metric     | ResNet50 | EfficientNet-B0 | DenseNet121 |
+|------------|----------|------------------|-------------|
+| Accuracy   | 0.90     | 0.96             | 0.95        |
+| Average F1 | 0.90     | 0.96             | 0.95        |
+
+- EfficientNet-B0 achieved the highest overall accuracy and F1-score making it the best-performing model in this comparison
+- DenseNet121 also performed strongly but required more training time due to its dense connectivity structure
+- ResNet50 was a solid baseline with decent accuracy and faster training compared to DenseNet
+
+All models were evaluated on the same validation set containing 280 samples equally distributed across 56 classes.

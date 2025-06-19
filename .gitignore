@@ -10,3 +10,5 @@ test/
 *.pt
 /best_model.pth
 /resnet50_license_plate_model.pth
+/best_model_densenet.pth
+/best_model_efficientnet.pth
