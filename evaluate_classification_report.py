@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import torch
 from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
 from data_loader import create_dataloaders
-from grad_cam import GradCAM, show_gradcam_on_image
 from model_utils import build_model, validate_model
 
 CSV_PATH = 'plates_dataset/plates.csv'
