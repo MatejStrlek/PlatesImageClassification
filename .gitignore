@@ -8,3 +8,5 @@ test/
 *.zip
 *.csv
 *.pt
+/best_model.pth
+/resnet50_license_plate_model.pth

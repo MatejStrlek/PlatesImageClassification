@@ -1,17 +1,15 @@
 import torch
 import torch.nn as nn
-from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay
-import matplotlib.pyplot as plt
+from sklearn.metrics import accuracy_score
 
-def build_model(num_classes, dropout1=0.4, dropout2=0.3):
+def build_model(num_classes, dropout=0.3):
     from torchvision import models
     model = models.resnet50(pretrained=True)
     in_features = model.fc.in_features
     model.fc = nn.Sequential(
-        nn.Dropout(dropout1),
         nn.Linear(in_features, 512),
         nn.ReLU(),
-        nn.Dropout(dropout2),
+        nn.Dropout(dropout),
         nn.Linear(512, num_classes)
     )
     return model
@@ -35,26 +33,23 @@ def train_one_epoch(model, loader, criterion, optimizer, device):
 
     return running_loss / len(loader.dataset), correct / total
 
-def validate_model(model, loader, device):
+def validate_model(model, loader, device, criterion):
     model.eval()
     val_preds, val_labels = [], []
+    val_loss = 0.0
 
     with torch.no_grad():
         for images, labels in loader:
             images, labels = images.to(device), labels.to(device)
             outputs = model(images)
+            if criterion is not None:
+                loss = criterion(outputs, labels)
+                val_loss += loss.item() * images.size(0)
+
             _, predicted = torch.max(outputs, 1)
             val_preds.extend(predicted.cpu().numpy())
             val_labels.extend(labels.cpu().numpy())
 
     acc = accuracy_score(val_labels, val_preds)
-    return acc, val_labels, val_preds
-
-def plot_confusion_matrix(val_labels, val_preds, label_map):
-    cm = confusion_matrix(val_labels, val_preds)
-    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=label_map.values())
-    fig, ax = plt.subplots(figsize=(14, 14))
-    disp.plot(ax=ax, cmap='Blues', xticks_rotation='vertical')
-    plt.title("Confusion matrix")
-    plt.tight_layout()
-    plt.show()
+    avg_loss = val_loss / len(loader.dataset)
+    return acc, val_labels, val_preds, avg_loss
