@@ -1,0 +1,62 @@
+                    precision    recall  f1-score   support
+
+           ALABAMA       1.00      1.00      1.00         5
+            ALASKA       1.00      1.00      1.00         5
+    AMERICAN SAMOA       1.00      1.00      1.00         5
+           ARIZONA       0.67      0.80      0.73         5
+          ARKANSAS       1.00      0.80      0.89         5
+        CALIFORNIA       1.00      1.00      1.00         5
+              CNMI       1.00      1.00      1.00         5
+          COLORADO       1.00      0.60      0.75         5
+       CONNECTICUT       1.00      1.00      1.00         5
+          DELAWARE       1.00      1.00      1.00         5
+           FLORIDA       0.83      1.00      0.91         5
+           GEORGIA       1.00      1.00      1.00         5
+              GUAM       1.00      1.00      1.00         5
+             HAWAI       1.00      1.00      1.00         5
+             IDAHO       1.00      0.80      0.89         5
+          ILLINOIS       1.00      1.00      1.00         5
+           INDIANA       0.80      0.80      0.80         5
+              IOWA       1.00      1.00      1.00         5
+            KANSAS       1.00      1.00      1.00         5
+          KENTUCKY       1.00      1.00      1.00         5
+         LOUISIANA       1.00      1.00      1.00         5
+             MAINE       1.00      1.00      1.00         5
+          MARYLAND       1.00      1.00      1.00         5
+     MASSACHUSETTS       1.00      1.00      1.00         5
+          MICHIGAN       1.00      1.00      1.00         5
+         MINNESOTA       1.00      1.00      1.00         5
+          MISSIPPI       1.00      1.00      1.00         5
+          MISSOURI       1.00      1.00      1.00         5
+           MONTANA       0.80      0.80      0.80         5
+          NEBRASKA       1.00      1.00      1.00         5
+            NEVADA       1.00      0.80      0.89         5
+     NEW HAMPSHIRE       1.00      1.00      1.00         5
+        NEW JERSEY       1.00      1.00      1.00         5
+        NEW MEXICO       1.00      1.00      1.00         5
+          NEW YORK       1.00      1.00      1.00         5
+    NORTH CAROLINA       0.83      1.00      0.91         5
+      NORTH DAKOTA       1.00      1.00      1.00         5
+              OHIO       1.00      1.00      1.00         5
+          OKLAHOMA       1.00      1.00      1.00         5
+            OREGON       1.00      1.00      1.00         5
+      PENNSYLVANIA       0.83      1.00      0.91         5
+       PUERTO RICO       0.83      1.00      0.91         5
+      RHODE ISLAND       1.00      0.80      0.89         5
+    SOUTH CAROLINA       1.00      1.00      1.00         5
+      SOUTH DAKOTA       1.00      1.00      1.00         5
+         TENNESSEE       1.00      1.00      1.00         5
+             TEXAS       1.00      1.00      1.00         5
+U S VIRGIN ISLANDS       1.00      1.00      1.00         5
+              UTAH       1.00      1.00      1.00         5
+           VERMONT       1.00      1.00      1.00         5
+          VIRGINIA       1.00      1.00      1.00         5
+        WASHINGTON       1.00      1.00      1.00         5
+     WASHINGTON DC       1.00      0.80      0.89         5
+     WEST VIRGINIA       1.00      1.00      1.00         5
+         WISCONSIN       0.83      1.00      0.91         5
+           WYOMING       0.83      1.00      0.91         5
+
+          accuracy                           0.96       280
+         macro avg       0.97      0.96      0.96       280
+      weighted avg       0.97      0.96      0.96       280
