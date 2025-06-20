@@ -1,5 +1,6 @@
 # Dataset overview
-This project is using US license plates image classification dataset which contains clean and labeled images 
+This project is using [US license plates image classification dataset](https://www.kaggle.com/datasets/gpiosenka/us-license-plates-image-classification/data) 
+which contains clean and labeled images 
 of license plates from all 50 U.S. states, District of Columbia and several U.S. territories.
 
 **Total samples**: 8,721 images
